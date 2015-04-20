@@ -1,5 +1,7 @@
 # linat
 
+*The LFE client library for the iNaturalist REST API*
+
 <img src="resources/images/inaturalist-report-6-medium.png" />
 
 ## Introduction
