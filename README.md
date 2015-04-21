@@ -183,19 +183,24 @@ token:
 
 ### Making Calls [&#x219F;](#table-of-contents)
 
-This ``README`` won't document all the API details availale from the iNat service, as
-that is already done by the folks at iNaturalist [here](https://www.inaturalist.org/pages/api+reference).
-However, see below for some example usage to get starting using ``linat``
-quickly.
+This ``README`` won't document all the details of the API calls availale from
+the iNat service, as that is already done by the folks at iNaturalist
+[here](https://www.inaturalist.org/pages/api+reference).
+However:
+ * this section will show you what basic usage looks like in LFE and Erlang, and
+ * the [API section](#the-api-) below provides a list of the LFE functions
+   make available by the linat client library.
 
 
 #### From LFE [&#x219F;](#table-of-contents)
 
-Calls from LFE are pretty standard:
+To start the LFE REPL, do the following:
 
 ```bash
 $ make repl-no-deps
 ```
+
+Calls from LFE are pretty standard:
 
 ```lisp
 > (linat:get-obs `(#(project 1234)))
@@ -204,15 +209,17 @@ $ make repl-no-deps
 
 #### From Erlang [&#x219F;](#table-of-contents)
 
-Through written in LFE, the rcrly API is 100% Erlang Core compatible. You use
-it just like any other Erlang library.
+To start the Erlang shell, do the following:
 
 ```bash
 $ make shell-no-deps
 ```
 
+Through written in LFE, the linat API is 100% Erlang Core compatible. You use
+it just like any other Erlang library.
+
 ```erlang
-1> linat:'get-obs([{project, 1234}]).
+1> linat:'get-obs'([{project, 1234}]).
 {ok, ...}
 ```
 
@@ -220,6 +227,8 @@ $ make shell-no-deps
 
 The following options may be passed to any API call:
 
+* ``token`` - calls which require authorization need to have the ``token``
+  option passed
 * ``return`` - what format the client calls should take. Can be one of
   ``json``, ``csv``, ``dwc``, ``kml``, ``atom``, ``widget``, or ``full``; the default  is ``json``.
   Using the ``full`` format option will return JSON data as well as the complete HTTP
@@ -238,7 +247,7 @@ When the ``return-type`` is set to ``json`` (the default), the data from the
 response is what is returned:
 
 ```lisp
-> (rcrly:get-account 1 '(#(return-type json)))
+> (linat:get-account 1 '(#(return-type json)))
 #(ok
   (#(adjustments ...)
    #(invoices ...)
@@ -254,7 +263,7 @@ When the ``return-type`` is set to ``full``, the response is annotated and
 returned:
 
 ```lisp
-> (rcrly:get-account 1 '(#(return-type full)))
+> (linat:get-account 1 '(#(return-type full)))
 #(ok
   (#(response ok)
    #(status #(200 "OK"))
@@ -280,39 +289,39 @@ returned:
 ##### ``log-level`` [&#x219F;](#table-of-contents)
 
 ```lisp
-(rcrly:get-account 1 '(#(log-level debug)))
+(linat:get-account 1 '(#(log-level debug)))
 ```
 
 ##### ``endpoint`` [&#x219F;](#table-of-contents)
 
 If you wish to make a request to a full URL, you will need to pass the option
-``#(endpoint false)`` to override the default behaviour of the rcrly library
+``#(endpoint false)`` to override the default behaviour of the linat library
 creating the URL for you, based upon the provided endpoint.
 
 In other words, one would normally make this sort of call:
 
 ```lisp
-> (rcrly:get "/some/recurly/endpoint")
+> (linat:get "/some/recurly/endpoint")
 ```
 
 And the ``endpoint`` option is needed if you want to access a full URL:
 
 ```lisp
 > (set options '(#(endpoint false)))
-> (rcrly:get "https://some.domain/path/to/resource" options)
+> (linat:get "https://some.domain/path/to/resource" options)
 ```
 
 
 ##### Options for lhttpc [&#x219F;](#table-of-contents)
 
 If you wish to pass general HTTP client options to lhttpc, then you will need to use
-``rcrly-httpc:request/7``, which takes the following arguments:
+``linat-httpc:request/7``, which takes the following arguments:
 
 ```
 endpoint method headers body timeout options lhttpc-options
 ```
 
-where ``options`` are the rcrly options discussed above, and ``lhttpc-options``
+where ``options`` are the linat options discussed above, and ``lhttpc-options``
 are the regular lhttpc options, the most significant of which are:
 
 * ``connect_options`` - a list of terms
@@ -326,25 +335,25 @@ are the regular lhttpc options, the most significant of which are:
 
 ### Working with Results [&#x219F;](#table-of-contents)
 
-All results in rcrly are of the form ``#(ok ...)`` or ``#(error ...)``, with the
+All results in linat are of the form ``#(ok ...)`` or ``#(error ...)``, with the
 elided contents of those tuples changing depending upon context. This is the
 standard approach for Erlang libraries, so should be quite familiar to users.
 
-iNat's API is XML-based; the rcrly API inherits some of its characteristics
+iNat's API is XML-based; the linat API inherits some of its characteristics
 from this fact. In particular, data structures representing the parsed XML data
-are regularly returned by rcrly calls. Parsed rcrly results have the following:
+are regularly returned by linat calls. Parsed linat results have the following:
 
 * a tag
 * attributes
 * contents (which may itself contain nested tag/attrs/contents)
 
-As such, many results are often 3-tuples. rcrly includes functions (see below)
+As such, many results are often 3-tuples. linat includes functions (see below)
 for working with this 3-tuple data.
 
 
 #### Multi-Valued Results
 
-By multi-valued results, we mean items in a list -- many rcrly API calls will
+By multi-valued results, we mean items in a list -- many linat API calls will
 return a list of items, for example, ``get-all-invoices/0``, ``get-plans/0``, or
 ``get-accounts/0``. These results are of the following form:
 
@@ -361,7 +370,7 @@ return a list of items, for example, ``get-all-invoices/0``, ``get-plans/0``, or
      ...)))
 ```
 
-The rcrly library provides ``map`` and ``foldl`` functions for easily working
+The linat library provides ``map`` and ``foldl`` functions for easily working
 with these results.
 
 
@@ -380,7 +389,7 @@ etc. The results for those functions have the following form:
     ))
 ```
 
-The rcrly library provides functions like ``get-in`` and ``get-linked`` for
+The linat library provides functions like ``get-in`` and ``get-linked`` for
 easily working with these results.
 
 
@@ -429,7 +438,7 @@ For instance, here's what a standard iNat JSON result looks like:
 </account>
 ```
 
-And here is that same result from the LFE rcrly library:
+And here is that same result from the LFE linat library:
 
 ```lisp
 #(account
@@ -468,13 +477,13 @@ And here is that same result from the LFE rcrly library:
    #(created_at (#(type "datetime")) ("2011-10-25T12:00:00"))))
 ```
 
-The rcrly library offers a couple of convenience functions for extracting data
+The linat library offers a couple of convenience functions for extracting data
 from this sort of structure -- see the next two sections for more information
 about data extraction.
 
 #### ``get-data`` [&#x219F;](#table-of-contents)
 
-The ``get-data`` utility function is provided in the ``rcrly`` module and is
+The ``get-data`` utility function is provided in the ``linat`` module and is
 useful for extracing response data returned from client requests made with
 the ``full`` option. It assumes a nested property list structure with the
 ``content`` key in the ``body``'s property list.
@@ -482,7 +491,7 @@ the ``full`` option. It assumes a nested property list structure with the
 Example usage:
 
 ```lisp
-> (set `#(ok ,results) (rcrly:get-accounts `(#(return-type full))))
+> (set `#(ok ,results) (linat:get-accounts `(#(return-type full))))
 #(ok
   (#(response ok)
    #(status #(200 "OK"))
@@ -493,7 +502,7 @@ Example usage:
       #(content
         #(accounts ...))))))
 
-> (rcrly:get-data results)
+> (linat:get-data results)
 #(accounts
   (#(type "array"))
   (#(account ...)
@@ -502,14 +511,14 @@ Example usage:
 
 Though this is useful when dealing with response data from ``full`` the return
 type, you may find that it is more convenient to use the default ``data`` return
-type with the ``rcrly:get-in`` function instead, as it allows you to extract
+type with the ``linat:get-in`` function instead, as it allows you to extract
 just the data you need. See below for an example.
 
 
 #### ``get-in`` [&#x219F;](#table-of-contents)
 
-The utillity function ``rcrly:get-in`` is inspired by the Clojure ``get-in``
-function, but in this case, tailored to work with the rcrly results which have
+The utillity function ``linat:get-in`` is inspired by the Clojure ``get-in``
+function, but in this case, tailored to work with the linat results which have
 been converted from XML to LFE/Erlang data structures. With a single call, you
 are able to retrieve data which is nested at any depth, providing just the keys
 needed to locate it.
@@ -517,7 +526,7 @@ needed to locate it.
 Here's an example:
 
 ```lisp
-> (set `#(ok ,account) (rcrly:get-account 1))
+> (set `#(ok ,account) (linat:get-account 1))
 #(ok
   #(account
     (#(href ...))
@@ -528,7 +537,7 @@ Here's an example:
       #(city () ("Fairville"))
       ...))
     ...)))
-> (rcrly:get-in '(account address city) account)
+> (linat:get-in '(account address city) account)
 "Fairville"
 ```
 
@@ -547,10 +556,10 @@ Here's an example showing getting account data, and then getting data
 which is linked to the account data via ``href``s:
 
 ```lisp
-> (set `#(ok ,account) (rcrly:get-account 1))
+> (set `#(ok ,account) (linat:get-account 1))
 #(ok
   #(account ...))
-> (rcrly:get-linked '(account transactions) account)
+> (linat:get-linked '(account transactions) account)
 #(ok
   #(transactions
     (#(type "array"))
