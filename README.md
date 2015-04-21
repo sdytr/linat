@@ -563,7 +563,7 @@ which is linked to the account data via ``href``s:
 
 #### ``map`` and ``foldl`` [&#x219F;](#table-of-contents)
 
-Recurly's API is XML-based, so parsed results have the following:
+iNat's API is XML-based, so parsed results have the following:
  * a tag
  * attributes
  * contents (which may itself contain nested tag/attrs/contents)
@@ -703,7 +703,7 @@ TBD
 
 #### Relationships and Linked Data [&#x219F;](#table-of-contents)
 
-In the Recurly REST API, data relationships are encoded in media links, per
+In the iNat REST API, data relationships are encoded in media links, per
 common best REST practices. Linked data may be retreived easily using the
 ``get-linked/2`` utility function (analog to the ``get-in/2`` function).
 
@@ -711,7 +711,7 @@ For more information, see the ``get-linked`` section above.
 
 ### Creating Payloads [&#x219F;](#table-of-contents)
 
-Payloads for ``PUT`` and ``POST`` data in the Recurly REST API are XML
+Payloads for ``PUT`` and ``POST`` data in the iNat REST API are XML
 documents. As such, we need to be able to create XML for such things as
 update actions. To facilitate this, The LFE linat library provides
 XML-generating macros. in the REPL, you can ``slurp`` the ``linat-xml``
@@ -739,7 +739,7 @@ This also works for modules that will be genereating XML payloads: simply
 And then they will be available in your module.
 
 Here's a sample payload from the
-[Recurly docs](https://docs.recurly.com/api/billing-info#update-billing-info-credit-card)
+[iNat docs](https://docs.recurly.com/api/billing-info#update-billing-info-credit-card)
 (note that multiple children need to be wrapped in a ``list``):
 
 ```lisp
@@ -764,14 +764,14 @@ Here's a sample payload from the
 ### Handling Errors [&#x219F;](#table-of-contents)
 
 As mentioned in the "Working with Results" section, all parsed responses from
-Recurly are a tuple of either ``#(ok ...)`` or ``#(error ...)``. All processing
+iNat are a tuple of either ``#(ok ...)`` or ``#(error ...)``. All processing
 of linat results should pattern match against these typles, handling the error
 cases as appropriate for the application using the linat library.
 
 
-#### Recurly Errors [&#x219F;](#table-of-contents)
+#### iNat Errors [&#x219F;](#table-of-contents)
 
-The Recurly API will return errors under various circumstances. For instance,
+The iNat API will return errors under various circumstances. For instance,
 an error is returned when attempting to look up billing information with a
 non-existent account:
 
@@ -854,7 +854,7 @@ Each API call has a default arity and then an arity+1 where the "+1" is an
 argument for linat client options (see the "Options" section above).
 
 For each of the API functions listed below, be sure to examine the linked
-Recurly documentation for information about payloads.
+iNat documentation for information about payloads.
 
 * [The API](#the-api-)
   * [Comments](#comments-)
@@ -867,7 +867,7 @@ Recurly documentation for information about payloads.
 
 ### Comments [&#x219F;](#table-of-contents)
 
-Recurly [Comments documentation](https://www.inaturalist.org/pages/api+reference#post-comments)
+iNat [Comments documentation](https://www.inaturalist.org/pages/api+reference#post-comments)
 
 #### ``add-comment``
 
@@ -896,24 +896,24 @@ Takes ID argument:
 
 ### Identifications [&#x219F;](#table-of-contents)
 
-Recurly [Identifications documentation](https://www.inaturalist.org/pages/api+reference#post-identifications)
+iNat [Identifications documentation](https://www.inaturalist.org/pages/api+reference#post-identifications)
 
 
 ### Observations [&#x219F;](#table-of-contents)
 
-Recurly [Observations documentation](https://www.inaturalist.org/pages/api+reference#get-observations)
+iNat [Observations documentation](https://www.inaturalist.org/pages/api+reference#get-observations)
 
 
 ### Places [&#x219F;](#table-of-contents)
 
-Recurly [Places documentation](https://www.inaturalist.org/pages/api+reference#get-places)
+iNat [Places documentation](https://www.inaturalist.org/pages/api+reference#get-places)
 
 
 ### Projects [&#x219F;](#table-of-contents)
 
-Recurly [Projects documentation](https://www.inaturalist.org/pages/api+reference#get-projects)
+iNat [Projects documentation](https://www.inaturalist.org/pages/api+reference#get-projects)
 
 
 ### Users [&#x219F;](#table-of-contents)
 
-Recurly [Users documentation](https://www.inaturalist.org/pages/api+reference#post-users)
+iNat [Users documentation](https://www.inaturalist.org/pages/api+reference#post-users)
