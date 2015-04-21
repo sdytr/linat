@@ -9,6 +9,7 @@
 * [Introduction](#introduction-)
   * [About iNaturalist](#about-recurly-)
   * [The LFE Client Library](#the-lfe-client-library-)
+* [Dependencies](#dependencies-)
 * [Installation](#installation-)
 * [Usage](#usage-)
   * [Configuration](#configuration-)
@@ -42,9 +43,10 @@
   * [Projects](#projects-)
   * [Users](#users-)
 
+
 ## Introduction [&#x219F;](#table-of-contents)
 
-### About Recurly [&#x219F;](#table-of-contents)
+### About iNaturalist [&#x219F;](#table-of-contents)
 
 From the iNaturalist [docs site](https://www.inaturalist.org/pages/developers/) (and [here](https://www.inaturalist.org/pages/api+reference)):
 
@@ -58,7 +60,20 @@ The iNat API is a set of REST endpoints that can be used to read data from iNat 
 The LFE client library for the iNaturalist REST service is based upon [lhc](https://github.com/sdytr/lhc), the simple HTTP client for LFE. OAuth support is
 provided by the [loauth](https://github.com/sdytr/loauth) library.
 
-## Installation
+
+## Dependencies [&#x219F;](#table-of-contents)
+
+To use linat, the following are required:
+
+* Erlang (preferably a recent version)
+* lfetool (from the [dev-v1 branch](https://github.com/lfe/lfetool/tree/dev-v1#dev-))
+* rebar (used by lfetool and the linat ``Makefile``)
+* Command-line developer tools (e.g., ``make``)
+
+Before proceding, be sure to have those installed.
+
+
+## Installation [&#x219F;](#table-of-contents)
 
 Just add it to your ``rebar.config`` deps:
 
@@ -77,6 +92,8 @@ And then do the usual:
 ```
 
 
+## Usage [&#x219F;](#table-of-contents)
+
 ### Configuration [&#x219F;](#table-of-contents)
 
 The LFE iNat library supports two modes of configuration:
@@ -87,7 +104,7 @@ OS environment variables take precedence over values in the configuration file.
 If you would like to use environment variables, the following may be set:
 
 * ``INAT_APP_ID``
-* ``INAT_SECRET`` (e.g., ``yourname.recurly.com``)
+* ``INAT_SECRET``
 * ``INAT_USER``
 * ``INAT_PASS``
 
@@ -152,9 +169,13 @@ user = your iNaturalist login username
 pass = your iNaturalist password
 ```
 
-When you run the REPL or start the application from your shell, these will be
-used to create the authentiction header in every call made to the REST API,
-per the specifications of the iNat service.
+With one or both of these in place, you can now login and obtain your
+token:
+
+```lisp
+> (set token (linat-auth:get-token))
+"15bc50777bfcf8137348ade0bb03e2203cc0997fbeaffcc760963e2e71044825"
+```
 
 
 ### Making Calls [&#x219F;](#table-of-contents)
