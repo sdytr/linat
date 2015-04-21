@@ -9,3 +9,6 @@ bin/expm
 *.dump
 .rebar
 logs/*
+*/#*#
+*/.#*
+*~
