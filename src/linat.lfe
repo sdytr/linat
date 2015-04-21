@@ -1,5 +1,8 @@
 (defmodule linat
   (export all))
 
-(defun my-adder (x y)
-  (+ x (+ y 1)))
+(defun start ()
+  (++ (loauth:start)
+      `(#(gproc ,(application:start 'gproc))
+        #(econfig ,(econfig:start))
+        #(linat ok))))
