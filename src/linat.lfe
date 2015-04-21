@@ -2,7 +2,8 @@
   (export all))
 
 (defun start ()
-  (++ (loauth:start)
+  (++ `(#(logjam ,(logjam:start)))
+      (loauth:start)
       `(#(gproc ,(application:start 'gproc))
         #(econfig ,(econfig:start))
         #(linat ok))))
