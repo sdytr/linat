@@ -136,12 +136,15 @@ execute the following before using linat:
 
 ```lisp
 > (linat:start)
-(#(gproc ok)
- #(econfig ok)
+(#(logjam ok)
  #(inets ok)
  #(ssl ok)
- #(lhttpc ok))
+ #(lhttpc ok)
+ #(gproc ok)
+ #(econfig ok)
+ #(linat ok))
 ```
+
 At that point, you're ready to start making calls.
 
 If you're not in the REPL and you will be using this library programmatically,
