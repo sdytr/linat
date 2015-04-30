@@ -176,7 +176,7 @@ With one or both of these in place, you can now login and obtain your
 token:
 
 ```lisp
-> (set token (linat-auth:get-token))
+> (set mytoken (linat-auth:get-token))
 "15bc50777bfcf8137348ade0bb03e2203cc0997fbeaffcc760963e2e71044825"
 ```
 
@@ -191,6 +191,9 @@ However:
  * the [API section](#the-api-) below provides a list of the LFE functions
    make available by the linat client library.
 
+Note that all usage below assumes that you have configured your environment
+with the necessary iNat service variables.
+
 
 #### From LFE [&#x219F;](#table-of-contents)
 
@@ -200,11 +203,26 @@ To start the LFE REPL, do the following:
 $ make repl-no-deps
 ```
 
-Calls from LFE are pretty standard:
+Note that the ``make`` targets for starting LFE REPLs and Erlang shells
+automatically start the dependent applications for you. If you are using this
+library from a program of your own, then you will need to call ``(linat:start)``
+before using any of the API functions.
+
+Calls from LFE are pretty standard. First thing you should do is obtain a token:
 
 ```lisp
-> (linat:get-obs `(#(project 1234)))
-#(ok ...)
+> (set mytoken (linat-auth:get-token))
+"15bc50777bfcf8137348ade0bb03e2203cc0997fbeaffcc760963e2e71044825"
+```
+
+At which point you're ready to make calls:
+
+```lisp
+> (binary_to_list (ljson:get #(1 "taxon" "name") data))
+"Urocyon cinereoargenteus"
+> (linat-obs:get `(#(token ,mytoken) #(id 1418863)))
+> (linat-obs:get `(#(token ,mytoken) #(username "js_young")))
+> (linat-obs:get `(#(token ,mytoken) #(project 42)))
 ```
 
 #### From Erlang [&#x219F;](#table-of-contents)

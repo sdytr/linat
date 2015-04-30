@@ -71,22 +71,22 @@ compile-tests: clean-eunit
 repl: compile
 	@which clear >/dev/null 2>&1 && clear || printf "\033c"
 	@echo "Starting an LFE REPL ..."
-	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) repl lfe +pc unicode
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) repl lfe +pc unicode -s linat
 
 repl-no-deps: compile-no-deps
 	@which clear >/dev/null 2>&1 && clear || printf "\033c"
 	@echo "Starting an LFE REPL ..."
-	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) repl lfe +pc unicode
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) repl lfe +pc unicode -s linat
 
 shell: compile
 	@which clear >/dev/null 2>&1 && clear || printf "\033c"
 	@echo "Starting an Erlang shell ..."
-	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) erl + pc unicode
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) repl erlang +pc unicode -s linat
 
 shell-no-deps: compile-no-deps
 	@which clear >/dev/null 2>&1 && clear || printf "\033c"
 	@echo "Starting an Erlang shell ..."
-	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) erl + pc unicode
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) repl erlang +pc unicode -s linat
 
 clean: clean-ebin clean-eunit
 	@which rebar.cmd >/dev/null 2>&1 && rebar.cmd clean || rebar clean

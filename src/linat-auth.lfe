@@ -6,7 +6,6 @@
 (defun token-path () "/oauth/token")
 
 (defun get-token ()
-  (linat:start)
   (loauth:get-token
     (linat-cfg:get-user)
     (linat-cfg:get-pass)

@@ -1,6 +1,8 @@
 (defmodule linat-util
   (export all))
 
+(include-lib "linat/include/linat-options.lfe")
+
 (defun get-version ()
   (lutil:get-app-version 'linat))
 
@@ -45,11 +47,51 @@
     (list all-but-last (car last))))
 
 (defun rcar (list)
-  "Returns the last element."
+  "Reverse (car): returns the last element."
   (let ((`(,_ ,last) (rdecons list)))
     last))
 
 (defun rcdr (list)
-  "Returns all but the last element."
+  "Reverse (cdr): returns all but the last element."
   (let ((`(,all-but-last ,_) (rdecons list)))
     all-but-last))
+
+(defun tcar (tuple)
+  "(car) for tuples."
+  (car (tuple_to_list tuple)))
+
+(defun tcdr (tuple)
+  "(cdr) for tuples."
+  (cdr (tuple_to_list tuple)))
+
+(defun linat-rec->opts (linat-opts-record)
+  "This is not a general function, rather it is intended only to be used with
+  linat-opts records."
+  (lists:zip
+    (fields-linat-opts)
+    (tcdr linat-opts-record)))
+
+(defun opts->linat-rec (linat-opts)
+  "This is *totally* cheating, creating the record using the internal
+  Erlang data structure to represent it (tuple). This will break if
+  Erlang ever changes its representation of records."
+  `#(linat-opts
+     ,@(lists:map
+        (lambda (x) (proplists:get_value x linat-opts))
+        (fields-linat-opts))))
+
+(defun api-rec->opts (api-opts-record)
+  "This is not a general function, rather it is intended only to be used with
+  api-opts records."
+  (lists:zip
+    (fields-api-opts)
+    (tcdr api-opts-record)))
+
+(defun opts->api-rec (api-opts)
+  "This is *totally* cheating, creating the record using the internal
+  Erlang data structure to represent it (tuple). This will break if
+  Erlang ever changes its representation of records."
+  `#(api-opts
+     ,@(lists:map
+        (lambda (x) (proplists:get_value x api-opts))
+        (fields-api-opts))))
