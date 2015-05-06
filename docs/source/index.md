@@ -1,5 +1,5 @@
 ---
-title: API Reference
+title: LFE iNat REST API Reference
 
 language_tabs:
   - lfe
