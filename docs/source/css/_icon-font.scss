@@ -21,33 +21,118 @@
 
 %icon-exclamation-sign {
   @extend %icon;
-  content: "\e600";
+  content: "\f06a";
 }
 %icon-question-sign {
   @extend %icon;
-  content: "\e601";
+  content: "\f059";
 }
 %icon-info-sign {
   @extend %icon;
-  content: "\e602";
+  content: "\f05a";
 }
 %icon-remove-sign {
   @extend %icon;
-  content: "\e603";
+  content: "\f056";
 }
 %icon-plus-sign {
   @extend %icon;
-  content: "\e604";
+  content: "\f055";
 }
 %icon-minus-sign {
   @extend %icon;
-  content: "\e605";
+  content: "\f056";
 }
 %icon-ok-sign {
   @extend %icon;
-  content: "\e606";
+  content: "\f06c";
 }
 %icon-search {
   @extend %icon;
-  content: "\e607";
+  content: "\f002";
+}
+
+%icon-search {
+  @extend %icon;
+  content: "\f002";
+}
+
+%icon-plus-circle {
+  @extend %icon;
+  content: "\f055";
+}
+
+%icon-minus-circle {
+  @extend %icon;
+  content: "\f056";
+}
+
+%icon-times-circle {
+  @extend %icon;
+  content: "\f057";
+}
+
+%icon-check-circle {
+  @extend %icon;
+  content: "\f058";
+}
+
+%icon-question-circle {
+  @extend %icon;
+  content: "\f059";
+}
+
+%icon-info-circle {
+  @extend %icon;
+  content: "\f05a";
+}
+
+%icon-times-circle-o {
+  @extend %icon;
+  content: "\f05c";
+}
+
+%icon-check-circle-o {
+  @extend %icon;
+  content: "\f05d";
+}
+
+%icon-exclamation-circle {
+  @extend %icon;
+  content: "\f06a";
+}
+
+%icon-leaf2 {
+  @extend %icon;
+  content: "\f06c";
+}
+
+%icon-exclamation-triangle {
+  @extend %icon;
+  content: "\f071";
+}
+
+%icon-warning {
+  @extend %icon;
+  content: "\f071";
+}
+
+%icon-bug {
+  @extend %icon;
+  content: "\f188";
+}
+
+%icon-leaf {
+  @extend %icon;
+  content: "\e9a4";
+}
+
+%icon-fire {
+  @extend %icon;
+  content: "\e9a9";
+}
+
+%icon-power {
+  @extend %icon;
+  content: "\e9b5";
 }
