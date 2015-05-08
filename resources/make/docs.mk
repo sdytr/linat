@@ -23,3 +23,6 @@ publish: docs
 	git add * &> /dev/null && \
 	git commit -a -m "Generated content." &> /dev/null && \
 	git push -f $(REPO) master:gh-pages
+	cd - && \
+	cd $(DOCS_DIR) && \
+	rm .git

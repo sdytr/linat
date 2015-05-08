@@ -2,7 +2,7 @@
 title: LFE iNat REST API Reference
 
 language_tabs:
-  - lfe
+  - 
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
